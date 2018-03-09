@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Annie's Story Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
+
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        display: block;
+        font-size: 2em;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: -.7em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        line-height: 1.2em;
+        color: #000000;
+        font-family: 'Abril Fatface', cursive;
+      }
+
+       h3 {
+        display: -webkit-box;
+        font-size: 1.2em;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: normal;
+      }
+
+      p {
+        display: block;
+        color: grey;
+        font-style: italic;
+        -webkit-margin-before: 1.5em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .mapboxgl-popup-content {
+        width: 35vw;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXZlcnlsaXR0bGV0ZWUiLCJhIjoiY2pla2JhM2JhNGFtbDJxbzFmd283dWpxaSJ9.Qjm7us1nWU7XvDu8EpDJAA'; // replace this with your access token
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/everylittletee/cjek3kq4r4z2x2rqcije6pqce' // replace this with your style URL
+    });
+    
+
+  map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ["sites"] // replace this with the name of the layer
+  });
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  console.log(feature.properties.link); 
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h1>' + feature.properties.title + '</h1><p>' + feature.properties.date + '</p><p> Read the full story <a href="' + feature.properties.link + '">here</a>.</p><img src="'+ feature.properties.pic + '" alt="photo" style="width:35vw;"></img>')
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
+});
+
+    </script>
+  </body>
+</html>
