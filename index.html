@@ -5,7 +5,7 @@
     <title>Annie's Story Map</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
-
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Shrikhand" rel="stylesheet">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
     <style>
       body {
@@ -22,6 +22,7 @@
         -webkit-margin-end: 0px;
         line-height: 1.2em;
         color: #000000;
+        letter-spacing: 1.4px;
         font-family: 'Abril Fatface', cursive;
       }
 
@@ -37,6 +38,14 @@
 
       p {
         display: block;
+        -webkit-margin-before: 1.5em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+      }
+
+      .dateFont {
+        display: block;
         color: grey;
         font-style: italic;
         -webkit-margin-before: 1.5em;
@@ -44,6 +53,7 @@
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
       }
+
 
       #map {
         position: absolute;
@@ -83,7 +93,7 @@
 
   var popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h1>' + feature.properties.title + '</h1><p>' + feature.properties.date + '</p><p> Read the full story <a href="' + feature.properties.link + '">here</a>.</p><img src="'+ feature.properties.pic + '" alt="photo" style="width:35vw;"></img>')
+    .setHTML('<h1>' + feature.properties.title + '</h1><p class="dateFont">' + feature.properties.date + '</p><p> Read the full story <a href="' + feature.properties.link + '">here</a>.</p><img src="'+ feature.properties.pic + '" alt="photo" style="width:35vw;"></img>')
     .setLngLat(feature.geometry.coordinates)
     .addTo(map);
 });
